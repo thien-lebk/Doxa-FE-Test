@@ -15,11 +15,11 @@ const CategoryHeader = () => {
                 ")",
             }}
           ></div>
-          <div className="text-start">
+          <div className="text-start pl-4">
             <div className="text-2xl font-bold">Dota 2 on Reddit </div>
             <div className="text-sm text-gray-500">r/Dota2</div>
           </div>
-          <div className="ml-8 h-8 flex items-center text-sm font-bold px-8 py-2 text-white bg-cyan-600 rounded-xl">
+          <div className="cursor-pointer ml-8 h-8 flex items-center text-sm font-bold px-8 py-2 text-white bg-cyan-600 rounded-xl">
             Join
           </div>
         </div>
