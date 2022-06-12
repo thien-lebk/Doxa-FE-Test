@@ -4,6 +4,11 @@ import classNames from "classnames";
 const CategoryHeader = () => {
   return (
     <div className="bg-white  w-full ">
+      <div style={{
+        backgroundImage:
+         "url(" +   "https://styles.redditmedia.com/t5_2s580/styles/bannerBackgroundImage_ib65tlpqt9c81.png?width=4000&s=743909a86e9584e57417f5820e68d0533235140a" + ")")}}>
+
+      </div>
       <div className="max-w-screen-sm mx-auto">
         <div className="flex py-2">
           <div
@@ -25,12 +30,12 @@ const CategoryHeader = () => {
         </div>
       </div>
       <div className="flex justify-between text-sm text-gray-500">
-        <div>Posts</div>
-        <div>Predictions</div>
-        <div>New to Dota 2</div>
-        <div>Read the FAQ</div>
-        <div>Subreddit Rules</div>
-        <div>TI10 Survival Guide</div>
+        <div className="p-1 border-b-4 border-cyan-600">Posts</div>
+        <div className="p-1">Predictions</div>
+        <div className="p-1">New to Dota 2</div>
+        <div className="p-1">Read the FAQ</div>
+        <div className="p-1">Subreddit Rules</div>
+        <div className="p-1">TI10 Survival Guide</div>
       </div>
     </div>
   );
