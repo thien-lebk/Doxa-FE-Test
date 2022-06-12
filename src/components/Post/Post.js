@@ -2,11 +2,11 @@ import React from "react";
 
 const Post = () => {
   return (
-    <div className="flex bg-white border-gray-300 border border-solid rounded ">
+    <div className="flex hover:border-black  bg-white border-gray-300 border border-solid rounded ">
       <div className="w-9 text-xs bg-gray-50 py-1 font-bold">
-        <i class="text-base las la-chevron-up hover:bg-gray-300 cursor-pointer"></i>
+        <i class="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
         241
-        <i class="text-base las la-chevron-down hover:bg-gray-300 cursor-pointer"></i>
+        <i class="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
       </div>
       <div className="text-start py-1 ml-1">
         <div className="text-sxs text-gray-500 uppercase font-bold">
@@ -31,17 +31,17 @@ const Post = () => {
           </div>
         </div>
         <div className="flex mt-2 text-gray-500 font-bold">
-          <div className="text-xs mr-4 flex justify-center items-center">
+          <div className="rounded p-1 hover:bg-gray-300 cursor-pointer text-xs mr-4 flex justify-center items-center">
             <i className="las la-comment text-2xl mr-1 "></i> 206 Comments
           </div>
-          <div className="text-xs mr-4 flex justify-center items-center">
-            <i className="las la-gift text-2xl mr-1 "></i> Award
-          </div>
-          <div className="text-xs mr-4 flex justify-center items-center">
+          <div className="rounded p-1 hover:bg-gray-300 cursor-pointer text-xs mr-4 flex justify-center items-center">
             <i className="las la-share text-2xl mr-1 "></i> Share
           </div>
-          <div className="text-xs mr-4 flex justify-center items-center">
+          <div className="rounded p-1 hover:bg-gray-300 cursor-pointer text-xs mr-4 flex justify-center items-center">
             <i className="las la-bookmark text-2xl mr-1 "></i> Save
+          </div>
+          <div className="rounded p-1 hover:bg-gray-300 cursor-pointer text-xs mr-4 flex justify-center items-center">
+          <i class="las la-ellipsis-h text-2xl "></i>
           </div>
         </div>
       </div>

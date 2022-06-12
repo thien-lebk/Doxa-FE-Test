@@ -11,21 +11,7 @@ function App() {
     <div className="App bg-gray-200">
      <BrowserRouter>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/topics">Topics</Link>
-          </li>
-        </ul>
-        <hr />
-        <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+        
         <Routes>
           <Route exact path="/" element={Home()} />
           <Route path="/about" element={About()} />

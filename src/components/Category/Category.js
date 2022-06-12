@@ -8,7 +8,7 @@ const Category = () => {
   // console.log(searchParams);
   const [filterType, setFilterType] = useState("hot");
   const [clickExpand, setClickExpand] = useState(false);
-  useEffect(() => {}, [filterType,clickExpand]);
+  useEffect(() => {}, [filterType, clickExpand]);
   console.log(clickExpand);
   return (
     <div className="px-4 my-4 bg-white  border-gray-300 border border-solid rounded ">
@@ -26,7 +26,10 @@ const Category = () => {
             <i class="las la-chart-bar text-2xl mr-1"></i>
             Top
           </div>
-          <div onFocus={() => setClickExpand(true)} className="relative hover:bg-gray-300 text-sm p-1 flex justify-center items-center text-gray-500 cursor-pointer rounded-xl">
+          <div
+            onFocus={() => setClickExpand(true)}
+            className="relative hover:bg-gray-200 text-sm p-1 flex justify-center items-center text-gray-500 cursor-pointer rounded-xl"
+          >
             <i class="las la-ellipsis-h text-2xl "></i>
             <div
               className={classNames("hidden ", {
@@ -39,10 +42,9 @@ const Category = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-12 justify-center items-center hover:bg-gray-300 rounded-xl">
-          <i className="las la-list-ul">
-            <i className="las la-angle-down"></i>
-          </i>
+        <div className="flex w-12 justify-center items-center hover:bg-gray-100 rounded-2xl px-1">
+          <i className="las la-list-ul text-2xl"></i>
+          <i className="las la-angle-down"></i>
         </div>
       </div>
     </div>
