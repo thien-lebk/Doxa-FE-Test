@@ -1,20 +1,40 @@
-import React, { useState, useEffect } from "react";
-import Post from "./Post/Post";
-import Category from "./Category/Category";
-import CategoryHeader from "./CategoryHeader/CategoryHeader";
+import React, { useState, useEffect, createContext,useContext } from "react";
+import Post from "../components/Post/Post";
+import Category from "../components/Category/Category";
+import CategoryHeader from "../components/CategoryHeader/CategoryHeader";
 import TopicService from "../services/topic";
+export const PostContext = createContext({
+})
 const Home = () => {
   const [data, setData] = useState([]);
+  const [listPostId, setListPostId] = useState([]);
+  const [listPost, setListPost] = useState([]);
+ 
   const init = async () => {
-    const data = await TopicService.getList();
-    setData(data);
+    const res = await TopicService.getList({
+      rtj: "only",
+      redditWebClient: "web2x",
+      app: "web2x-client-production",
+      include: "prefsSubreddit",
+      // after: !statereset
+      //   ? postIds.current[postIds.current.length - 1]
+      //   : "",
+      dist: 6,
+      forceGeopopular: false,
+      layout: "classic",
+      // sort: sortOf,
+      limit: 5,
+    });
+    setData(res);
+    setListPost(res.posts ?? []);
+    setListPostId(res.postIds ?? []);
   };
   useEffect(() => {
     init();
   }, []);
 
   return (
-    <div>
+    <PostContext.Provider value={{ listPost: listPost}}>
       <div className="flex h-12 px-5 bg-white items-center justify-between">
         <div className="bg-white flex justify-center items-center my-auto">
           <img
@@ -78,20 +98,25 @@ const Home = () => {
       {CategoryHeader()}
       <div className="container max-w-screen-sm mx-auto ">
         {Category()}
-        {data.map((ele) =>
-          Post({
-            author: ele.data.author,
-            title: ele.data.title,
-            numComments: ele.data.num_comments,
-            authorFlairRichtext: ele.data.author_flair_richtext,
-            topicType: ele.data?.link_flair_richtext[0]?.t ?? '',
-            imgUrl: ele.data?.url,
-
-          })
+        {listPostId.map((ele) => {
+          return <Post
+            keyEle={ele}
+            author={listPost[ele].author}
+            title={listPost[ele].title}
+            numComments={listPost[ele].num_comments}
+            authorFlairRichtext={listPost[ele].author_flair_richtext}
+            topicType={listPost[ele]?.flair[0]?.richtext[0]?.t ?? ''}
+            imgUrl={listPost[ele].url}
+          />
+        }
         )}
       </div>
-    </div>
+    </PostContext.Provider>
   );
 };
 
 export default Home;
+
+export const usePostList = () => {
+  return useContext(PostContext);
+};

@@ -9,7 +9,6 @@ const Category = () => {
   const [filterType, setFilterType] = useState("hot");
   const [clickExpand, setClickExpand] = useState(false);
   useEffect(() => {}, [filterType, clickExpand]);
-  console.log(clickExpand);
   return (
     <div className="px-4 my-4 bg-white  border-gray-300 border border-solid rounded ">
       <div className="justify-center flex py-3 ">

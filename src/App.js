@@ -1,23 +1,18 @@
 import './App.css';
 
-import About from "./components/About";
-import Home from "./components/Home";
-import Topics from "./components/Topic";
+import About from "./routes/About";
+import Home from "./routes/Home";
+import Topics from "./routes/TopicDetailPage";
 // import listPost from "./component/test";
-import RenderList from "./components/test";
 import { BrowserRouter, Routes, Route, Link, Switch } from "react-router-dom";
 function App() {
   return (
     <div className="App bg-gray-200">
      <BrowserRouter>
-      <div>
-        
         <Routes>
           <Route exact path="/" element={Home()} />
-          <Route path="/about" element={About()} />
-          <Route path="/topics" element={Topics()} />
+          <Route path="/detail" element={<Topics></Topics>} />
         </Routes>
-      </div>
     </BrowserRouter>
     </div>
   );
