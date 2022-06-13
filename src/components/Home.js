@@ -1,10 +1,18 @@
-import React from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import Post from "./Post/Post";
 import Category from "./Category/Category";
 import CategoryHeader from "./CategoryHeader/CategoryHeader";
+import TopicService from "../services/topic";
 const Home = () => {
-  const changeData = () => {};
+  const [data, setData] = useState([]);
+  const init = async () => {
+    const data = await TopicService.getList();
+    setData(data);
+  };
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <div>
       <div className="flex h-12 px-5 bg-white items-center justify-between">
@@ -17,7 +25,7 @@ const Home = () => {
         </div>
         {/* search */}
         <div className="w-1/2 hover:border-blue-700 max-w-screen-sm flex items-center border border-gray-200 bg-gray-100 rounded py-1 px-4">
-          <i class="text-2xl -rotate-90 las la-search text-gray-500 mr-2"></i>
+          <i className="text-2xl -rotate-90 las la-search text-gray-500 mr-2"></i>
           <div className=" flex bg-gray-300 rounded-xl px-1 py-1 text-xs mr-1">
             <img
               className="h-4 rounded-full mr-1"
@@ -33,7 +41,7 @@ const Home = () => {
         </div>
         <div className="flex">
           <div className="h-8 w-8 flex items-center mr-2 rounded-full hover:bg-gray-300 bg-gray-200">
-            <i class="las la-bell m-auto"></i>
+            <i className="las la-bell m-auto"></i>
           </div>
           <div className="cursor-pointer hover:bg-gray-50 px-4  h-8 text-sm font-bold text-blue-700 border border-blue-700 rounded-2xl flex items-center justify-center">
             Log in
@@ -42,7 +50,7 @@ const Home = () => {
             Sign up
           </div>
           <div className="cursor-pointer ml-2 text-gray-500 text-2xl flex w-12 justify-center items-center hover:border-gray-300 hover:border rounded">
-            <i class="las la-user"></i>
+            <i className="las la-user"></i>
             <i className="las la-angle-down text-base"></i>
           </div>
         </div>
@@ -58,21 +66,29 @@ const Home = () => {
         }}
       >
         <div
-        className="h-44 bg-no-repeat w-full absolute top-7"
-        style={{
-          backgroundImage:
-            "url(" +
-            "https://styles.redditmedia.com/t5_2s580/styles/bannerPositionedImage_98gge688vp251.png" +
-            ")",
-        }}
-        >
-        
-        </div>
+          className="h-44 bg-no-repeat w-full absolute top-7"
+          style={{
+            backgroundImage:
+              "url(" +
+              "https://styles.redditmedia.com/t5_2s580/styles/bannerPositionedImage_98gge688vp251.png" +
+              ")",
+          }}
+        ></div>
       </div>
       {CategoryHeader()}
       <div className="container max-w-screen-sm mx-auto ">
         {Category()}
-        {Post()}
+        {data.map((ele) =>
+          Post({
+            author: ele.data.author,
+            title: ele.data.title,
+            numComments: ele.data.num_comments,
+            authorFlairRichtext: ele.data.author_flair_richtext,
+            topicType: ele.data?.link_flair_richtext[0]?.t ?? '',
+            imgUrl: ele.data?.url,
+
+          })
+        )}
       </div>
     </div>
   );
