@@ -64,9 +64,9 @@ const PostDetail = ({
                 <div className="text-xs text-gray-500">
                     <p className="flex cursor-pointer">
                         Posted by
-                        <span className="ml-1 mr-1 bg-gray-100 text-black flex pl-1">
-                        </span>
-                        <span>u/{data.author}</span>
+                        {/* <span className="ml-1 mr-1 bg-gray-100 text-black flex pl-1">
+                        </span> */}
+                        <span className="ml-1">u/{data.author}</span>
                         {/* <span> 2 days ago</span> */}
                     </p>
                 </div>

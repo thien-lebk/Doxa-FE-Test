@@ -70,10 +70,10 @@ const Post = ({
         <div className="text-xs text-gray-500">
           <p className="flex cursor-pointer">
             Posted by
-            <span className="ml-1 mr-1 bg-gray-100 text-black flex pl-1">
+            {/* <span className="ml-1 mr-1 bg-gray-100 text-black flex pl-1">
               {convertAuthorFlairRichtext(authorFlairRichtext)}
-            </span>
-            <span>u/{author}</span>
+            </span> */}
+            <span className="ml-1">u/{author}</span>
             {/* <span> 2 days ago</span> */}
           </p>
         </div>
