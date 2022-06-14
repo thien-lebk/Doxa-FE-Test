@@ -21,9 +21,11 @@ const Detail = () => {
   }, [idTopic])
   return <div className="justify-center flex mt-4 max-w-screen-sm mx-auto">
     {data ? <div key={'content'} className="flex   bg-white border-gray-300 border border-solid rounded ">
-      <div className="text-center w-8 text-xs bg-gray-50 py-1 font-bold rounded">
+      <div className="text-center text-xs bg-gray-50 py-1 font-bold rounded">
         <i className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
-        {data?.score}
+        <div className=" w-9">
+          {data?.score}
+        </div>
         <i className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
       </div>
       <div className="text-start py-1 ml-1">

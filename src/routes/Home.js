@@ -11,10 +11,10 @@ const Home = () => {
   const [sortType, setSortType] = useState('hot');
 
   const fetchData = async (isReplace) => {
-    let after ;
-    after = isReplace? '' :  listPostId.length > 0
-    ? listPostId[listPostId.length - 1]
-    : "";
+    let after;
+    after = isReplace ? '' : listPostId.length > 0
+      ? listPostId[listPostId.length - 1]
+      : "";
     const res = await TopicService.getList({
       rtj: "only",
       redditWebClient: "web2x",
@@ -61,7 +61,7 @@ const Home = () => {
   useEffect(() => {
     fetchData(true);
   }, [sortType,]);
-  
+
   useEffect(() => {
   }, [listPostId])
   return (
