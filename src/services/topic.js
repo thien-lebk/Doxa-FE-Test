@@ -7,8 +7,7 @@ const TopicService =  {
     getById:async(id,params)=>{
       try{
           const {data}=await axios.get( `https://gateway.reddit.com/desktopapi/v1/postcomments/${id}`,{params:params})
-
-          return data;
+          return data.posts[id];
       }catch(error){
           console.log("error",error)
           return false;

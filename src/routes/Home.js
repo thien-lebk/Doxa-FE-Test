@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext,useContext } from "react";
+import InfiniteScroll from 'react-infinite-scroller';
 import Post from "../components/Post/Post";
 import Category from "../components/Category/Category";
 import CategoryHeader from "../components/CategoryHeader/CategoryHeader";
@@ -8,34 +9,59 @@ export const PostContext = createContext({
 const Home = () => {
   const [data, setData] = useState([]);
   const [listPostId, setListPostId] = useState([]);
-  const [listPost, setListPost] = useState([]);
+  const [listPost, setListPost] = useState({});
  
-  const init = async () => {
-    const res = await TopicService.getList({
-      rtj: "only",
-      redditWebClient: "web2x",
-      app: "web2x-client-production",
-      include: "prefsSubreddit",
-      // after: !statereset
-      //   ? postIds.current[postIds.current.length - 1]
-      //   : "",
-      dist: 6,
-      forceGeopopular: false,
-      layout: "classic",
-      // sort: sortOf,
-      limit: 5,
-    });
-    setData(res);
-    setListPost(res.posts ?? []);
-    setListPostId(res.postIds ?? []);
+  const fetchData = async (params) => {
+        const res = await TopicService.getList({
+          rtj: "only",
+          redditWebClient: "web2x",
+          app: "web2x-client-production",
+          include: "prefsSubreddit",
+          after: listPostId.length > 0
+            ? listPostId[listPostId.length-1]
+            : "",
+          dist: 6,
+          forceGeopopular: false,
+          layout: "classic",
+          // sort: sortOf,
+          limit: 10,
+        });
+        setData(res);
+        console.log(listPost);
+        if(Object.keys(listPost).length !== 0){
+          setListPost({...listPost,...res.posts});
+        }else{
+          setListPost(res.posts);
+        }
+        setListPostId([...listPostId,...res.postIds]);
+        setIsFetching(false);
   };
+  
+  const [isFetching, setIsFetching] = useState(false);
+
   useEffect(() => {
-    init();
+    fetchData();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!isFetching) return;
+    fetchData();
+  }, [isFetching]);
+
+  function handleScroll() {
+    if (document.documentElement.scrollTop < document.documentElement.offsetHeight || isFetching) return;
+    setIsFetching(true);
+  }
+  useEffect(() => {
+    console.log(listPostId.length);
+  }, [listPostId])
+  
   return (
     <PostContext.Provider value={{ listPost: listPost}}>
-      <div className="flex h-12 px-5 bg-white items-center justify-between">
+      
+          <div className="flex h-12 px-5 bg-white items-center justify-between">
         <div className="bg-white flex justify-center items-center my-auto">
           <img
             className="h-8 cursor-pointer"
@@ -98,15 +124,17 @@ const Home = () => {
       {CategoryHeader()}
       <div className="container max-w-screen-sm mx-auto ">
         {Category()}
-        {listPostId.map((ele) => {
+        {
+        listPostId.map((ele) => {
           return <Post
             keyEle={ele}
             author={listPost[ele].author}
             title={listPost[ele].title}
-            numComments={listPost[ele].num_comments}
-            authorFlairRichtext={listPost[ele].author_flair_richtext}
+            numComments={listPost[ele].numComments}
+            authorFlairRichtext={listPost[ele].flair}
             topicType={listPost[ele]?.flair[0]?.richtext[0]?.t ?? ''}
             imgUrl={listPost[ele].url}
+            numVotes={listPost[ele].score}
           />
         }
         )}

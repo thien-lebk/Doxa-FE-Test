@@ -11,6 +11,7 @@ const Post = ({
   authorFlairRichtext = [],
   topicType = "",
   imgUrl = "",
+  numVotes = 0,
 }) => {
   const [isExpand, setIsExpand] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -40,7 +41,7 @@ const Post = ({
     <div key={keyEle} className="flex hover:border-black  bg-white border-gray-300 border border-solid rounded ">
       <div className="w-9 text-xs bg-gray-50 py-1 font-bold rounded">
         <i className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
-        241
+       <p className="mb-0"> {numVotes}</p>
         <i className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
       </div>
       <div className="text-start py-1 ml-1">
@@ -51,7 +52,7 @@ const Post = ({
           </div>
         </div> */}
         <div className="mt-2 text-base">
-          <p className="cursor-pointer" onClick={()=> navigate("/detail" + `?id=${keyEle}`)}>
+          <p className="cursor-pointer font-bold" onClick={()=> navigate("/detail" + `?id=${keyEle}`)}>
             {title}
             <span className="ml-1 py-0 text-xs bg-gray-100 rounded-xl px-2">
               {topicType}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { usePostList } from "../../routes/Home";
+import TopicService from "../../services/topic"
 const PostDetail = ({
     keyEle = "",
     author = "",
@@ -12,9 +13,8 @@ const PostDetail = ({
     const [isExpand, setIsExpand] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const res = usePostList();
-    console.log(res);
-    const data = !!keyEle ? res.listPost[keyEle] : null
-    
+    const data = !!res.listPost ? res?.listPost[keyEle] :  TopicService.getById(keyEle);
+
     const convertToText = (value) => {
         switch (value.e) {
             case 'text':
