@@ -7,10 +7,13 @@ const Detail = () => {
   const idTopic = urlSearch.get('id');
   const [content, setContent] = useState('')
   const [data, setData] = useState()
+  const [voteNumber, setVoteNumber] = useState(0);
+
   const intFunc = async () => {
     if (idTopic) {
       const res = await TopicService.getById(idTopic);
       setData(res)
+      setVoteNumber(res.score)
       setContent(res.media.content)
     }
   }
@@ -22,11 +25,11 @@ const Detail = () => {
   return <div className="justify-center flex mt-4 max-w-screen-sm mx-auto">
     {data ? <div key={'content'} className="flex   bg-white border-gray-300 border border-solid rounded ">
       <div className="text-center text-xs bg-gray-50 py-1 font-bold rounded">
-        <i className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
+        <i onClick={()=>setVoteNumber(voteNumber+1)} className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
         <div className=" w-9">
-          {data?.score}
+          {voteNumber}
         </div>
-        <i className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
+        <i onClick={()=>setVoteNumber(voteNumber-1)} className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
       </div>
       <div className="text-start py-1 ml-1">
         <div className="mt-2 text-base">

@@ -7,6 +7,7 @@ const PostDetail = ({
     const [isExpand, setIsExpand] = useState(false)
     const res = usePostList();
     const data = !!res.listPost ? res?.listPost[keyEle] : TopicService.getById(keyEle);
+    const [voteNumber, setVoteNumber] = useState(0);
 
     const convertToText = (value) => {
         switch (value.e) {

@@ -8,7 +8,7 @@ import Topics from "./routes/Detail";
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
 function App() {
   return (
-    <div className="App bg-gray-200">
+    <div className="App bg-gray-200 min-h-screen">
       {Header()}
       {CategoryHeader()}
       <BrowserRouter>
