@@ -57,7 +57,6 @@ const Home = () => {
   }, [sortType,]);
 
   useEffect(() => {
-    console.log(listPostId,listPost);
   }, [listPostId])
   return (
     <PostContext.Provider value={{ listPost: listPost }}>
