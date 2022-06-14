@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import Post from "../components/Post/Post";
 import TopicService from "../services/post";
 import classNames from "classnames";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export const PostContext = createContext({
 })
@@ -10,11 +11,12 @@ const Home = () => {
   const [listPost, setListPost] = useState({});
   const [sortType, setSortType] = useState('hot');
 
-  const fetchData = async (isReplace) => {
+  const fetchData = async (isReplace = false) => {
     let after;
-    after = isReplace ? '' : listPostId.length > 0
+    after = listPostId.length > 0
       ? listPostId[listPostId.length - 1]
       : "";
+     
     const res = await TopicService.getList({
       rtj: "only",
       redditWebClient: "web2x",
@@ -37,6 +39,7 @@ const Home = () => {
         setListPost(res.posts);
       }
       setListPostId([...listPostId, ...res.postIds]);
+
     }
 
     setIsFetching(false);
@@ -51,18 +54,10 @@ const Home = () => {
 
   useEffect(() => {
     fetchData();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  useEffect(() => {
-    if (!isFetching) return;
-    fetchData();
-  }, [isFetching,]);
-  useEffect(() => {
-    fetchData(true);
   }, [sortType,]);
 
   useEffect(() => {
+    console.log(listPostId,listPost);
   }, [listPostId])
   return (
     <PostContext.Provider value={{ listPost: listPost }}>
@@ -104,10 +99,17 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {
+        <div>
+        <InfiniteScroll
+        dataLength={listPostId.length}
+        next={()=>fetchData()}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+>
+{
           listPostId.map((ele) => {
             return <Post
-              keyEle={ele}
+              keyEle={ele}  
               author={listPost[ele].author}
               title={listPost[ele].title}
               numComments={listPost[ele].numComments}
@@ -118,6 +120,11 @@ const Home = () => {
             />
           }
           )}
+
+
+</InfiniteScroll>
+        </div>
+       
       </div>
     </PostContext.Provider>
   );
