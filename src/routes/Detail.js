@@ -35,8 +35,8 @@ const Detail = () => {
         <div className="mt-2 text-base">
           <p className="cursor-pointer" >
             {data?.title}
-            <span className="ml-1 py-0 text-xs bg-gray-100 rounded-xl px-2">
-              {data?.topicType}
+            <span className="ml-1 py-1 text-xs bg-gray-100 rounded-xl px-2">
+            {data.flair[0]?.richtext[0]?.t??''}
             </span>
             <i className="las la-thumbtack text-green-400"></i>
 

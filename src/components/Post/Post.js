@@ -60,7 +60,7 @@ const Post = ({
         <div className="mt-2 text-base">
           <p className="cursor-pointer font-bold" onClick={()=> navigate("/detail" + `?id=${keyEle}`)}>
             {title}
-            <span className="ml-1 py-0 text-xs bg-gray-100 rounded-xl px-2">
+            <span className="ml-1 py-1 text-xs bg-gray-100 rounded-xl px-2">
               {topicType}
             </span>
             <i className="las la-thumbtack text-green-400"></i>
@@ -82,7 +82,7 @@ const Post = ({
           </div>
         <div className="flex mt-2 text-gray-500 font-bold">
           <div className="rounded p-1 hover:bg-gray-300 cursor-pointer text-xs mr-1 flex justify-center items-center"  onClick={()=>showModal()}>
-              <i className="las la-expand-arrows-alt text-2xl" ></i> :
+              <i className="las la-expand-arrows-alt text-2xl" ></i>
           </div>
           <div className=" p-1  text-xs mr-4 flex justify-center items-center text-gray-300">
             |

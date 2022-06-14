@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { usePostList } from "../../routes/Home";
 import TopicService from "../../services/post"
 const PostDetail = ({
@@ -7,8 +7,10 @@ const PostDetail = ({
     const [isExpand, setIsExpand] = useState(false)
     const res = usePostList();
     const data = !!res.listPost ? res?.listPost[keyEle] : TopicService.getById(keyEle);
-    const [voteNumber, setVoteNumber] = useState(0);
-
+    const [voteNumber, setVoteNumber] = useState(data.score);
+    useEffect(() => {
+    }, [voteNumber])
+    
     const convertToText = (value) => {
         switch (value.e) {
             case 'text':
@@ -42,20 +44,22 @@ const PostDetail = ({
 
     });
     ;
-
+    // listPost[ele]?.flair[0]?.richtext[0]?.t ?? ''
     return (
         <div key={keyEle} className="flex   bg-white border-gray-300 border border-solid rounded ">
             <div className="text-center w-9 text-xs bg-gray-50 py-1 font-bold rounded">
-                <i className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
-                241
-                <i className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
+                <i onClick={()=>setVoteNumber(voteNumber + 1)} className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
+                <div>
+                {voteNumber}
+                </div>
+                <i onClick={()=>setVoteNumber(voteNumber + 1)} className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
             </div>
             <div className="text-start py-1 ml-1">
                 <div className="mt-2 text-base">
                     <p className="cursor-pointer" >
                         {data.title}
                         <span className="ml-1 py-0 text-xs bg-gray-100 rounded-xl px-2">
-                            {data.topicType}
+                            {data.flair[0]?.richtext[0]?.t??''}
                         </span>
                         <i className="las la-thumbtack text-green-400"></i>
 
