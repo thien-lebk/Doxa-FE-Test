@@ -53,7 +53,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetchData();
+    fetchData(true);
   }, [sortType,]);
 
   useEffect(() => {
