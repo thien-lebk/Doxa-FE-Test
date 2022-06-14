@@ -92,9 +92,13 @@ const Home = () => {
                 </div> */}
               </div>
             </div>
-            <div className="flex w-12 justify-center items-center hover:bg-gray-100 rounded-2xl px-1">
+            <div className="dropdown-view-type relative flex w-12 justify-center items-center text-gray-500 hover:bg-gray-100 rounded-2xl px-1">
               <i className="las la-list-ul text-2xl"></i>
               <i className="las la-angle-down"></i>
+              <div className="dropdown-content absolute bg-white hidden">
+                <div>Card</div>
+                <div>Classic</div>
+              </div>
             </div>
           </div>
         </div>
