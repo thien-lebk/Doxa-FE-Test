@@ -5,11 +5,13 @@ const Header = () => {
     <div>
       <div className="flex h-12 px-5 bg-white items-center justify-between">
         <div className="bg-white flex justify-center items-center my-auto">
-          <img
-            className="h-8 cursor-pointer"
-            alt="logo-reddit"
-            src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/reddit-logo-inkythuatso-3-01-30-10-44-46.jpg"
-          ></img>
+          <a href='/'>
+            <img
+              className="h-8 cursor-pointer"
+              alt="logo-reddit"
+              src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/reddit-logo-inkythuatso-3-01-30-10-44-46.jpg"
+            ></img>
+          </a>
         </div>
         {/* search */}
         <div className="w-1/2 hover:border-blue-700 max-w-screen-sm flex items-center border border-gray-200 bg-gray-100 rounded py-1 px-4">
