@@ -1,19 +1,12 @@
 import React, { useState } from "react";
 import { usePostList } from "../../routes/Home";
-import TopicService from "../../services/topic"
+import TopicService from "../../services/post"
 const PostDetail = ({
     keyEle = "",
-    author = "",
-    title = "",
-    numComments = "",
-    authorFlairRichtext = [],
-    topicType = "",
-    imgUrl = "",
 }) => {
     const [isExpand, setIsExpand] = useState(false)
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const res = usePostList();
-    const data = !!res.listPost ? res?.listPost[keyEle] :  TopicService.getById(keyEle);
+    const data = !!res.listPost ? res?.listPost[keyEle] : TopicService.getById(keyEle);
 
     const convertToText = (value) => {
         switch (value.e) {
@@ -31,49 +24,30 @@ const PostDetail = ({
                 break;
         }
     }
-    const convertAuthorFlairRichtext = (value = []) => {
-        return value.map((ele) => {
-            switch (ele.e) {
-                case 'par':
-                    return ele.c.map(ele2 => {
-                        console.log(convertToText(ele2));
-                        return convertToText(ele2)
-                    })
 
-                case 'list':
-                    return ele.c.map(ele2 => {
-                        return convertToText(ele2)
-                    })
-                default:
-                    break;
-            }
-        });
-    };
-    const renderContent = (value = []) => {
-        return value.map((ele) => {
-            switch (ele.e) {
-                case 'par':
-                    return ele.c.map(ele2 => {
-                        return convertToText(ele2)
-                    })
-                case 'list':
-                    return <ul> {ele.c.map(ele2 => {
-                        return convertToText(ele2)
-                    })
-                    } </ul>
-                default:
-                    break;
-            }
+    const renderContent = (value = []) => value.map((ele) => {
+        switch (ele.e) {
+            case 'par':
+                return ele.c.map(ele2 => convertToText(ele2)
+                )
+            case 'list':
+                return <ul> {ele.c.map(ele2 => convertToText(ele2)
+                )
+                } </ul>
+            default:
+                break;
+        }
+        return;
 
-        });
-    };
+    });
+    ;
 
     return (
         <div key={keyEle} className="flex   bg-white border-gray-300 border border-solid rounded ">
             <div className="text-center w-9 text-xs bg-gray-50 py-1 font-bold rounded">
-                    <i className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
-                    241
-                    <i className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
+                <i className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
+                241
+                <i className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
             </div>
             <div className="text-start py-1 ml-1">
                 <div className="mt-2 text-base">
@@ -85,22 +59,18 @@ const PostDetail = ({
                         <i className="las la-thumbtack text-green-400"></i>
 
                     </p>
-                    {/* <div className=" flex items-center">
-            <img src={imgUrl}></img>
-          </div> */}
                 </div>
                 <div className="text-xs text-gray-500">
                     <p className="flex cursor-pointer">
                         Posted by
                         <span className="ml-1 mr-1 bg-gray-100 text-black flex pl-1">
-                            {/* {convertAuthorFlairRichtext(data.media.richtextContent.document)} */}
                         </span>
                         <span>u/{data.author}</span>
-                        <span> 2 days ago</span>
+                        {/* <span> 2 days ago</span> */}
                     </p>
                 </div>
                 <div className="content-post">
-                    <img src={data.media.content}></img>
+                    {/* <img alt="img-content" src={data.media.content}></img> */}
                     {renderContent(data.media.richtextContent.document)}
                 </div>
                 <div className="flex mt-2 text-gray-500 font-bold">

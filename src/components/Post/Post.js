@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal } from 'antd';
-import PostDetail from "./PostDetail";
-import { useLocation, useNavigate } from "react-router";
+import PostDetail from "./PostDetailModal";
+import {  useNavigate } from "react-router";
 
 const Post = ({
   keyEle="",
@@ -13,7 +13,6 @@ const Post = ({
   imgUrl = "",
   numVotes = 0,
 }) => {
-  const [isExpand, setIsExpand] = useState(false)
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
   const showModal = () => {
@@ -60,9 +59,6 @@ const Post = ({
             <i className="las la-thumbtack text-green-400"></i>
 
           </p>
-          {/* <div className=" flex items-center">
-            <img src={imgUrl}></img>
-          </div> */}
         </div>
         <div className="text-xs text-gray-500">
           <p className="flex cursor-pointer">
@@ -71,7 +67,7 @@ const Post = ({
               {convertAuthorFlairRichtext(authorFlairRichtext)}
             </span>
             <span>u/{author}</span>
-            <span> 2 days ago</span>
+            {/* <span> 2 days ago</span> */}
           </p>
         </div>
           <div className="content-post">
@@ -79,10 +75,7 @@ const Post = ({
           </div>
         <div className="flex mt-2 text-gray-500 font-bold">
           <div className="rounded p-1 hover:bg-gray-300 cursor-pointer text-xs mr-1 flex justify-center items-center"  onClick={()=>showModal()}>
-            {
-              !isExpand ? <i className="las la-expand-arrows-alt text-2xl" ></i> :
-                <i className="las la-compress-arrows-alt  text-2xl"></i>
-            }
+              <i className="las la-expand-arrows-alt text-2xl" ></i> :
           </div>
           <div className=" p-1  text-xs mr-4 flex justify-center items-center text-gray-300">
             |
@@ -102,7 +95,7 @@ const Post = ({
           </div>
         </div>
       </div>
-      <Modal className="!top-4" bodyStyle={{padding:0}} title="Post Detail" width={'full'} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal okText='' okButtonProps={{ style: { display: 'none' } }} cancelText='Close' className="!top-4" bodyStyle={{padding:0}} title="Post Detail" width={'full'} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         <PostDetail keyEle={keyEle}></PostDetail>
       </Modal>
     </div>

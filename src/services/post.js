@@ -1,5 +1,5 @@
 import axios from "axios";
-const TopicService =  {
+const PostService =  {
     getList: async (params) => {
        const {data}=await axios.get( "https://gateway.reddit.com/desktopapi/v1/subreddits/dota2",{params:params})
       return data;
@@ -15,4 +15,4 @@ const TopicService =  {
   }
 };
 
-export default TopicService;
+export default PostService;
