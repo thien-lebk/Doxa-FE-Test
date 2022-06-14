@@ -51,7 +51,7 @@ const Home = () => {
     if (document.documentElement.scrollTop < document.documentElement.offsetHeight || isFetching) return;
     setIsFetching(true);
   }
-
+  console.log(123213);
   useEffect(() => {
     fetchData();
   }, [sortType,]);
