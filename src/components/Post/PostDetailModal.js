@@ -54,7 +54,7 @@ const PostDetail = ({
                 </div>
                 <i onClick={()=>setVoteNumber(voteNumber + 1)} className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
             </div>
-            <div className="text-start py-1 ml-1">
+            <div className="text-start py-1 ml-1 max-w-xl">
                 <div className="mt-2 text-base">
                     <p className="cursor-pointer" >
                         {data.title}

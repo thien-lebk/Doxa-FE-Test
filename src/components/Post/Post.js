@@ -50,7 +50,7 @@ const Post = ({
        <p className="mb-0"> {voteNumber}</p>
         <i onClick={()=>setVoteNumber(voteNumber-1)} className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
       </div>
-      <div className="text-start py-1 ml-1">
+      <div className="text-start py-1 ml-1 max-w-xl">
         {/* <div className="text-sxs text-gray-500 uppercase font-bold">
           <div className="flex">
             <i className="las la-thumbtack text-green-400 font-bold text-2xl"></i>

@@ -10,13 +10,16 @@ const Home = () => {
   const [listPostId, setListPostId] = useState([]);
   const [listPost, setListPost] = useState({});
   const [sortType, setSortType] = useState('hot');
+  const [isFetching, setIsFetching] = useState(false);
+  const [firstLoad, setFirstLoad] = useState(true);
 
   const fetchData = async (isReplace = false) => {
+    (firstLoad || isReplace) && setIsFetching(true) ;
+    setFirstLoad(false);
     let after;
     after = listPostId.length > 0
       ? listPostId[listPostId.length - 1]
       : "";
-     
     const res = await TopicService.getList({
       rtj: "only",
       redditWebClient: "web2x",
@@ -41,16 +44,9 @@ const Home = () => {
       setListPostId([...listPostId, ...res.postIds]);
 
     }
-
     setIsFetching(false);
   };
 
-  const [isFetching, setIsFetching] = useState(false);
-
-  function handleScroll() {
-    if (document.documentElement.scrollTop < document.documentElement.offsetHeight || isFetching) return;
-    setIsFetching(true);
-  }
 
   useEffect(() => {
     fetchData(true);
@@ -60,7 +56,11 @@ const Home = () => {
   }, [listPostId])
   return (
     <PostContext.Provider value={{ listPost: listPost }}>
-
+      {isFetching?
+      <div className="z-auto absolute -translate-y-1/2 -translate-x-1/2 left-2/4 top-3/4">
+      <img src={'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw340'} alt="loading"></img>
+    </div>:<></>
+      }
       <div className="container max-w-screen-sm mx-auto ">
         <div className="px-4 my-4 bg-white  border-gray-300 border border-solid rounded ">
           <div className="justify-center flex py-3 ">
@@ -102,32 +102,32 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div>
-        <InfiniteScroll
-        dataLength={listPostId.length}
-        next={()=>fetchData()}
-        hasMore={true}
-        loader={<h4>Loading...</h4>}
->
-{
-          listPostId.map((ele) => {
-            return <Post
-              keyEle={ele}  
-              author={listPost[ele].author}
-              title={listPost[ele].title}
-              numComments={listPost[ele].numComments}
-              authorFlairRichtext={listPost[ele].flair}
-              topicType={listPost[ele]?.flair[0]?.richtext[0]?.t ?? ''}
-              imgUrl={listPost[ele].url}
-              numVotes={listPost[ele].score}
-            />
-          }
-          )}
+        <div className={classNames({"hidden":isFetching})}>
+          <InfiniteScroll
+            dataLength={listPostId.length}
+            next={() => fetchData()}
+            hasMore={true}
+            loader={<h4>Loading...</h4>}
+          >
+            {
+              listPostId.map((ele) => {
+                return <Post
+                  keyEle={ele}
+                  author={listPost[ele].author}
+                  title={listPost[ele].title}
+                  numComments={listPost[ele].numComments}
+                  authorFlairRichtext={listPost[ele].flair}
+                  topicType={listPost[ele]?.flair[0]?.richtext[0]?.t ?? ''}
+                  imgUrl={listPost[ele].url}
+                  numVotes={listPost[ele].score}
+                />
+              }
+              )}
 
 
-</InfiniteScroll>
+          </InfiniteScroll>
         </div>
-       
+
       </div>
     </PostContext.Provider>
   );

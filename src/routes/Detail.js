@@ -8,14 +8,19 @@ const Detail = () => {
   const [content, setContent] = useState('')
   const [data, setData] = useState()
   const [voteNumber, setVoteNumber] = useState(0);
+  const [isFetching, setIsFetching] = useState(false);
+
 
   const intFunc = async () => {
+    setIsFetching(true);
     if (idTopic) {
       const res = await TopicService.getById(idTopic);
       setData(res)
       setVoteNumber(res.score)
       setContent(res.media.content)
     }
+    setIsFetching(false);
+
   }
   useEffect(() => {
     if (idTopic) {
@@ -23,20 +28,25 @@ const Detail = () => {
     }
   }, [idTopic])
   return <div className="justify-center flex mt-4 max-w-screen-sm mx-auto">
+     {isFetching?
+      <div className="z-auto absolute -translate-y-1/2 -translate-x-1/2 left-2/4 top-3/4">
+      <img src={'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw340'} alt="loading"></img>
+    </div>:<></>
+      }
     {data ? <div key={'content'} className="flex   bg-white border-gray-300 border border-solid rounded ">
       <div className="text-center text-xs bg-gray-50 py-1 font-bold rounded">
-        <i onClick={()=>setVoteNumber(voteNumber+1)} className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
+        <i onClick={() => setVoteNumber(voteNumber + 1)} className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
         <div className=" w-9">
           {voteNumber}
         </div>
-        <i onClick={()=>setVoteNumber(voteNumber-1)} className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
+        <i onClick={() => setVoteNumber(voteNumber - 1)} className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
       </div>
-      <div className="text-start py-1 ml-1">
+      <div className="text-start py-1 ml-1 max-w-xl">
         <div className="mt-2 text-base">
           <p className="cursor-pointer" >
             {data?.title}
             <span className="ml-1 py-1 text-xs bg-gray-100 rounded-xl px-2">
-            {data.flair[0]?.richtext[0]?.t??''}
+              {data.flair[0]?.richtext[0]?.t ?? ''}
             </span>
             <i className="las la-thumbtack text-green-400"></i>
 
