@@ -14,7 +14,7 @@ const Home = () => {
   const [firstLoad, setFirstLoad] = useState(true);
 
   const fetchData = async (isReplace = false) => {
-    (firstLoad || isReplace) && setIsFetching(true) ;
+    (firstLoad || isReplace) && setIsFetching(true);
     setFirstLoad(false);
     let after;
     after = listPostId.length > 0
@@ -56,10 +56,11 @@ const Home = () => {
   }, [listPostId])
   return (
     <PostContext.Provider value={{ listPost: listPost }}>
-      {isFetching?
-      <div className="z-auto absolute -translate-y-1/2 -translate-x-1/2 left-2/4 top-3/4">
-      <img src={'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw340'} alt="loading"></img>
-    </div>:<></>
+
+      {isFetching ?
+        <div className="z-auto absolute -translate-y-1/2 -translate-x-1/2 left-2/4 top-3/4">
+          <img src={'https://img.pikbest.com/png-images/20190918/cartoon-snail-loading-loading-gif-animation_2734139.png!bw340'} alt="loading"></img>
+        </div> : <></>
       }
       <div className="container max-w-screen-sm mx-auto ">
         <div className="px-4 my-4 bg-white  border-gray-300 border border-solid rounded ">
@@ -102,12 +103,17 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className={classNames({"hidden":isFetching})}>
+        <div className={classNames({ "hidden": isFetching })}>
           <InfiniteScroll
             dataLength={listPostId.length}
             next={() => fetchData()}
             hasMore={true}
-            loader={<h4>Loading...</h4>}
+            loader={
+              <div className="w-full bg-white text-center">
+                <h4 className="mb-0 text-center animate-ping">Loading...</h4>
+                <img className="h-6 mx-auto" alt="loading-bottom" src="https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif"></img>
+              </div>
+            }
           >
             {
               listPostId.map((ele) => {
