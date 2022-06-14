@@ -36,7 +36,7 @@ const Header = () => {
           <div className="cursor-pointer hover:bg-gray-50 px-4  h-8 text-sm font-bold text-blue-700 border border-blue-700 rounded-2xl flex items-center justify-center">
             Log in
           </div>
-          <div className="cursor-pointer hover:bg-blue-500 ml-1 px-4 h-8 text-sm text-white font-bold bg-blue-700 rounded-2xl flex items-center justify-center">
+          <div className="cursor-pointer hover:bg-blue-500 ml-2 px-4 h-8 text-sm text-white font-bold bg-blue-700 rounded-2xl flex items-center justify-center">
             Sign up
           </div>
           <div className="cursor-pointer ml-2 text-gray-500 text-2xl flex w-12 justify-center items-center hover:border-gray-300 hover:border rounded">
