@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal } from 'antd';
 import PostDetail from "./PostDetailModal";
 import {  useNavigate } from "react-router";
@@ -14,6 +14,7 @@ const Post = ({
   numVotes = 0,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [voteNumber, setVoteNumber] = useState(0);
   const navigate = useNavigate();
   const showModal = () => {
     setIsModalVisible(true);
@@ -22,6 +23,12 @@ const Post = ({
   const handleOk = () => {
     setIsModalVisible(false);
   };
+
+  useEffect(() => {
+    setVoteNumber(numVotes)
+  
+  }, [])
+  
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -39,9 +46,9 @@ const Post = ({
   return (
     <div key={keyEle} className="flex hover:border-black  bg-white border-gray-300 border border-solid rounded ">
       <div className="w-9 text-xs bg-gray-50 py-1 font-bold rounded">
-        <i className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
-       <p className="mb-0"> {numVotes}</p>
-        <i className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
+       <i  onClick={()=>setVoteNumber(voteNumber+1)} className="text-base las la-chevron-up hover:bg-gray-300 hover:text-red-700 cursor-pointer"></i>
+       <p className="mb-0"> {voteNumber}</p>
+        <i onClick={()=>setVoteNumber(voteNumber-1)} className="text-base las la-chevron-down hover:bg-gray-300 hover:text-blue-700 cursor-pointer"></i>
       </div>
       <div className="text-start py-1 ml-1">
         {/* <div className="text-sxs text-gray-500 uppercase font-bold">
